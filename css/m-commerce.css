@@ -18,3 +18,9 @@
 
 /* shipping drawer is portalled into <body>; keep it above the page chrome like the template (z 10) */
 [data-embun-shipping] { position: relative; z-index: 10; }
+
+/* Product cards sit at the top of their cell. The template's cells centre the card vertically, which only shows
+   once cards in a row differ in height. Embun names wrap unevenly (iOS Safari fits "Pegaga Eye Serum" on one
+   line next to a two-line name), and the phone Trending grid stretches its cells to the row height, so the
+   shorter card dropped ~7px. Top-aligning keeps every image and title on one line across the row. */
+:has(> [class*="-container"] > .framer-in5igc) { align-items: flex-start !important; }
