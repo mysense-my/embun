@@ -1,0 +1,78 @@
+/* Pintu Pay — fictional hosted payment page for the Embun demo store (TEST MODE, nothing is charged or stored).
+   Deliberately its own look (a third-party page), set in the template's Inter. */
+:root { --pp-ink: #16181d; --pp-muted: #6b6f76; --pp-line: #e3e4e6; --pp-bg: #f4f4f2; --pp-card: #fff; --pp-acc: #3347d6; --pp-acc-d: #2738b8;
+  --pp-tint: #eef0fd; --pp-err: #b42318; --pp-err-bg: #fef3f2; --pp-ok: #12805c; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { min-height: 100vh; background: var(--pp-bg); color: var(--pp-ink); font: 400 14px/1.45 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+button { font: inherit; color: inherit; }
+.pp-top { display: flex; align-items: center; justify-content: space-between; max-width: 480px; margin: 0 auto; padding: 22px 20px 0; }
+.pp-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 16px; letter-spacing: -0.3px; color: var(--pp-ink); }
+.pp-logo svg { width: 22px; height: 22px; color: var(--pp-acc); }
+.pp-test { padding: 4px 10px; border-radius: 999px; background: #fff4d6; border: 1px solid #f3dd9b; color: #7a5200; font-size: 12px; font-weight: 500; }
+.pp-wrap { max-width: 480px; margin: 0 auto; padding: 16px 20px 40px; }
+.pp-card { position: relative; background: var(--pp-card); border: 1px solid var(--pp-line); border-radius: 14px; padding: 26px; box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04); }
+.pp-merchant { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid var(--pp-line); }
+.pp-merchant img { display: block; height: 15px; width: auto; }
+.pp-muted { color: var(--pp-muted); font-size: 13px; }
+.pp-amount { display: flex; flex-direction: column; gap: 2px; padding: 18px 0 20px; }
+.pp-amount strong { font-size: 30px; font-weight: 600; letter-spacing: -1px; line-height: 1.1; }
+.pp-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.pp-tab { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--pp-line);
+  background: #fff; cursor: pointer; font-size: 13px; font-weight: 500; transition: border-color .2s, background-color .2s; }
+.pp-tab img { display: block; width: 30px; height: 20px; }
+.pp-tab:hover { border-color: #c9cbd0; }
+.pp-tab.is-on { border-color: var(--pp-acc); background: var(--pp-tint); }
+.pp-form { display: flex; flex-direction: column; gap: 14px; }
+.pp-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.pp-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pp-field span, .pp-label { font-size: 13px; font-weight: 500; color: var(--pp-ink); margin: 0; }
+.pp-field input { width: 100%; min-width: 0; height: 44px; padding: 0 12px; border: 1px solid #d5d7da; border-radius: 8px; background: #fff; color: var(--pp-ink);
+  font: 400 15px/1 Inter, system-ui, sans-serif; letter-spacing: 0.2px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.pp-field input:focus { border-color: var(--pp-acc); box-shadow: 0 0 0 3px rgba(51, 71, 214, 0.15); }
+.pp-field.is-bad input { border-color: var(--pp-err); }
+.pp-hint { margin: 0; color: var(--pp-muted); font-size: 12px; line-height: 1.5; }
+.pp-hint b { font-weight: 500; color: var(--pp-ink); white-space: nowrap; }
+.pp-error { margin: 0; padding: 10px 12px; border-radius: 8px; background: var(--pp-err-bg); color: var(--pp-err); font-size: 13px; }
+.pp-btn, .pp-btn-2 { display: flex; align-items: center; justify-content: center; width: 100%; height: 46px; border-radius: 10px; cursor: pointer;
+  font-size: 15px; font-weight: 600; text-decoration: none; transition: background-color .2s, border-color .2s; }
+.pp-btn { border: 0; background: var(--pp-acc); color: #fff; }
+.pp-btn:hover { background: var(--pp-acc-d); }
+.pp-btn-2 { margin-top: 10px; border: 1px solid var(--pp-line); background: #fff; color: var(--pp-ink); }
+.pp-btn-2:hover { border-color: #c9cbd0; }
+.pp-banks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 16px; }
+.pp-bank { height: 42px; padding: 0 10px; border: 1px solid var(--pp-line); border-radius: 8px; background: #fff; cursor: pointer; font-size: 13px; text-align: left;
+  transition: border-color .2s, background-color .2s; }
+.pp-bank:hover { border-color: #c9cbd0; }
+.pp-bank.is-on { border-color: var(--pp-acc); background: var(--pp-tint); font-weight: 500; }
+[data-pp-fpx-1] > .pp-error { margin-bottom: 12px; }
+.pp-sim { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 10px; background: var(--pp-bg); margin-bottom: 16px; }
+.pp-sim + .pp-error { margin-bottom: 12px; }
+.pp-qr { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; margin-bottom: 16px; }
+.pp-qr [data-pp-qr] { padding: 14px; border: 1px solid var(--pp-line); border-radius: 12px; background: #fff; }
+.pp-qr svg { display: block; width: 176px; height: 176px; }
+.pp-qr .pp-hint { max-width: 300px; }
+.pp-timer { margin: 0; font-size: 13px; font-weight: 500; }
+[data-panel="qr"] > .pp-error { margin-bottom: 12px; }
+.pp-state { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 40px 0 30px; text-align: center; }
+.pp-state p { margin: 0; font-size: 15px; font-weight: 500; }
+.pp-spin { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--pp-tint); border-top-color: var(--pp-acc); animation: pp-spin .8s linear infinite; }
+.pp-state.is-ok .pp-spin { animation: none; border: 0; background: var(--pp-ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/22px no-repeat;
+  transform: scale(.6); animation: pp-pop .35s cubic-bezier(.2, 1.4, .4, 1) forwards; }
+.pp-state.is-bad .pp-spin { animation: none; border: 0; background: var(--pp-err) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 8l8 8M16 8l-8 8' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/20px no-repeat; }
+.pp-state small { color: var(--pp-muted); font-size: 13px; }
+@keyframes pp-spin { to { transform: rotate(360deg); } }
+@keyframes pp-pop { to { transform: scale(1); } }
+.pp-gone { display: flex; flex-direction: column; gap: 10px; padding: 10px 0; }
+.pp-gone .pp-btn { margin-top: 8px; }
+.pp-cancel { display: block; margin-top: 18px; text-align: center; color: var(--pp-muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.pp-cancel:hover { color: var(--pp-ink); }
+.pp-foot { margin: 16px 6px 0; color: var(--pp-muted); font-size: 12px; text-align: center; line-height: 1.5; }
+@media (max-width: 480px) {
+  .pp-top { padding: 16px 16px 0; }
+  .pp-wrap { padding: 12px 12px 32px; }
+  .pp-card { padding: 20px 18px; }
+  .pp-amount strong { font-size: 28px; }
+  .pp-field input { font-size: 16px; }
+}

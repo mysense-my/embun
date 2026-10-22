@@ -1,0 +1,20 @@
+/* Embun — commerce module styles (only what the template's SSR CSS does not already cover). */
+
+/* "Added to Favorites" tooltip (portal): preset kav5go text, no wrap, not selectable */
+[data-embun-tip] p { margin: 0; white-space: nowrap; user-select: none; -webkit-user-select: none;
+  font-family: "Inter", "Inter Placeholder", sans-serif; font-size: 14px; font-weight: 400; letter-spacing: -0.5px;
+  line-height: 1.25em; color: rgb(31, 43, 36); }
+
+/* quick add / purchase / variant focus ring (template: 2px solid rgb(0,122,255), offset 2) */
+.fc-quick-add-button-container:focus-visible,
+.fc-quick-add-button-container :focus-visible,
+.fc-product-variants-container button:focus-visible { outline: 2px solid rgb(0, 122, 255); outline-offset: 2px; border-radius: 0; }
+
+/* phone slideshow: Framer sets grab / grabbing on the drag surface; no text/image selection while swiping */
+[data-framer-name="FC Slideshow Mobile"] .framer-oe1wif-container > div { user-select: none; -webkit-user-select: none; }
+
+/* listing / favourites items fade (ProductSort) — the transition is set inline per update */
+[data-embun-item] { will-change: opacity; }
+
+/* shipping drawer is portalled into <body>; keep it above the page chrome like the template (z 10) */
+[data-embun-shipping] { position: relative; z-index: 10; }

@@ -1,0 +1,175 @@
+/* Embun — checkout page (MOCK store). Built from the template's own measured tokens:
+   fields = contact-form underline inputs (Inter 500 14/16.8, -0.28px, 10/10/10/0, 40px, 1px rgba(ink,.2) rule,
+   placeholder rgba(ink,.4); 16px on phone like the template's phone inputs), choices = PDP size picker
+   (radius 10, 1px ink / rgba(ink,.08), selected fill rgb(233,233,229)), primary = Add to cart (ink, radius 8, 40px,
+   14/500/-0.5px), line items = cart drawer, total = cart "Subtotal" (16/500/-0.6px). Gutters 40 (D) / 20 (T, P). */
+.ck {
+  --ink: rgb(31, 43, 36); --ink-6: rgba(31, 43, 36, 0.6); --ink-4: rgba(31, 43, 36, 0.4); --ink-2: rgba(31, 43, 36, 0.2);
+  --ink-1: rgba(31, 43, 36, 0.1); --ink-08: rgba(31, 43, 36, 0.08); --page: rgb(252, 251, 247); --surface: rgb(240, 239, 231);
+  --chip: rgb(233, 233, 229); --tile: rgb(243, 243, 239); --sale: rgb(196, 71, 45); --deep: rgb(51, 68, 58);
+  --ck-ease: ease; --ck-dur: 400ms;
+  width: 100%; color: var(--ink); font-family: Inter, "Inter Placeholder", sans-serif;
+}
+.ck *, .ck *::before, .ck *::after { box-sizing: border-box; }
+.ck p, .ck h2, .ck dl, .ck dd, .ck ul { margin: 0; }
+/* Framer only maps its text presets onto p / h1, so the presets used here are stated directly (same values; none of
+   them changes per breakpoint): 1i8k81j 20/110%/-0.8, v1xgsa 16/100%/-0.6, 15x05lw 14/125%/-0.5, du009m 12/120%/-0.4 */
+.ck .framer-text.framer-styles-preset-1i8k81j, .ck-ty .framer-text.framer-styles-preset-1i8k81j { font: 500 20px/1.1 Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.8px; }
+.ck .framer-text.framer-styles-preset-v1xgsa, .ck-ty .framer-text.framer-styles-preset-v1xgsa { font: 500 16px/1 Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.6px; }
+.ck .framer-text.framer-styles-preset-15x05lw, .ck-ty .framer-text.framer-styles-preset-15x05lw { font: 500 14px/1.25 Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.5px; }
+.ck .framer-text.framer-styles-preset-du009m, .ck-ty .framer-text.framer-styles-preset-du009m { font: 500 12px/1.2 Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.4px; }
+.ck h2.framer-text { color: var(--ink); }
+.ck [hidden] { display: none !important; }
+.ck :where(a) { color: inherit; }   /* zero-specificity so .ck-btn keeps its page-coloured text */
+
+/* ---------------------------------------------------------------- layout */
+.ck-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr); column-gap: 80px; align-items: start; }
+.ck-grid > .ck-form, .ck-grid > .ck-main { grid-column: 1; grid-row: 1; }
+.ck-grid > .ck-sum { grid-column: 2; grid-row: 1; position: sticky; top: 83px; }
+.ck-form, .ck-main { display: flex; flex-direction: column; gap: 50px; min-width: 0; }
+.ck-sec { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.ck-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ck-ship { display: flex; flex-direction: column; gap: 20px; }
+.ck-note { color: var(--ink-6); }
+
+/* ---------------------------------------------------------------- fields (template contact form) */
+.ck-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ck-line { position: relative; display: block; }
+.ck-line::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink-2);
+  transition: background-color var(--ck-dur) var(--ck-ease); }
+.ck-field:focus-within .ck-line::after { background: var(--ink); }
+.ck-field.is-bad .ck-line::after { background: var(--sale); }
+.ck-input { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 40px; padding: 10px 10px 10px 0; margin: 0;
+  border: 0; border-radius: 0; background: transparent; outline: none; color: var(--ink);
+  font: 500 14px/16.8px Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.28px; }
+.ck-input::placeholder { color: var(--ink-4); opacity: 1; }
+select.ck-input { cursor: pointer; padding-right: 24px; }
+select.ck-input.is-empty { color: var(--ink-4); }
+select.ck-input option { color: var(--ink); }
+.ck-chev { position: absolute; right: 2px; top: 50%; width: 9px; height: 5px; margin-top: -2.5px; pointer-events: none; color: var(--ink); }
+.ck-err { color: var(--sale); }
+.ck-err:empty { display: none; }
+
+/* ---------------------------------------------------------------- choices (PDP size picker) */
+.ck-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.ck-chip, .ck-opt { position: relative; cursor: pointer; border: 1px solid var(--ink-08); border-radius: 10px; background: rgba(236, 236, 232, 0);
+  color: rgba(31, 43, 36, 0.8);
+  transition: background-color var(--ck-dur) var(--ck-ease), border-color var(--ck-dur) var(--ck-ease), color var(--ck-dur) var(--ck-ease); }
+.ck-chip { display: inline-flex; align-items: center; padding: 12px 16px; font: 400 14px/1 Inter, "Inter Placeholder", sans-serif; }
+.ck-chip:hover, .ck-opt:hover { border-color: var(--ink-2); }
+.ck-chip.is-on, .ck-opt.is-on { background: var(--chip); border-color: var(--ink); color: var(--ink); }
+.ck-chip input, .ck-opt input, .ck-check input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.ck-chip:has(input:focus-visible), .ck-opt:has(input:focus-visible), .ck-check:has(input:focus-visible) .ck-box { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ck-opts { display: flex; flex-direction: column; gap: 10px; }
+.ck-opt { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; column-gap: 12px; align-items: center; padding: 14px 16px; }
+.ck-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--ink-4); position: relative; transition: border-color var(--ck-dur) var(--ck-ease); }
+.ck-dot::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--ink); transform: scale(0);
+  transition: transform var(--ck-dur) var(--ck-ease); }
+.ck-opt.is-on .ck-dot { border-color: var(--ink); }
+.ck-opt.is-on .ck-dot::after { transform: scale(1); }
+.ck-opt-txt { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ck-opt-t { color: var(--ink); }
+.ck-opt-m { color: var(--ink-6); }
+.ck-opt-r { color: var(--ink); white-space: nowrap; }
+.ck-badges { display: inline-flex; gap: 6px; }
+.ck-badges img { display: block; width: 34px; height: 22px; }
+
+.ck-check { position: relative; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; align-self: flex-start; }
+.ck-box { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--ink-4); position: relative; flex: none;
+  transition: background-color var(--ck-dur) var(--ck-ease), border-color var(--ck-dur) var(--ck-ease); }
+.ck-box::after { content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px; border: solid var(--page); border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg) scale(0); transition: transform var(--ck-dur) var(--ck-ease); }
+.ck-check input:checked + .ck-box { background: var(--ink); border-color: var(--ink); }
+.ck-check input:checked + .ck-box::after { transform: rotate(45deg) scale(1); }
+
+/* ---------------------------------------------------------------- buttons */
+.ck-btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; padding: 0 20px; border: 0; border-radius: 8px;
+  background: var(--ink); color: var(--page); cursor: pointer; text-decoration: none;
+  font: 500 14px/17.5px Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.5px; transition: background-color var(--ck-dur) var(--ck-ease); }
+.ck-btn:hover { background: var(--deep); }
+.ck-btn:disabled { cursor: default; }
+.ck-btn .em-spinner { width: 20px; height: 20px; }
+.ck-btn-2 { height: 40px; padding: 0 18px; border: 1px solid var(--ink-2); border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer;
+  transition: border-color var(--ck-dur) var(--ck-ease); }
+.ck-btn-2:hover { border-color: var(--ink); }
+.ck-link { padding: 0; border: 0; background: none; color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; align-self: flex-start; }
+.ck-under { align-self: flex-start; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.ck-paybar { display: flex; flex-direction: column; gap: 14px; }
+.ck-legal { color: var(--ink-6); }
+.ck-legal a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------------------------------------------------------------- order summary (cart drawer line items) */
+.ck-sum { background: var(--surface); border-radius: 10px; min-width: 0; }
+.ck-sum-toggle { display: none; }
+.ck-sum-in { padding: 30px; display: flex; flex-direction: column; }
+.ck .ck-sum-h { margin-bottom: 24px; }
+.ck-items { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.ck-item { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; }
+.ck-thumb { width: 64px; height: 64px; border-radius: 4px; overflow: hidden; background: var(--tile); }
+.ck-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ck-item-txt { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: 2px; }
+.ck-item-m { color: var(--ink-6); }
+.ck-item-p { padding-top: 2px; white-space: nowrap; }
+.ck-code { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: start; margin-top: 24px; padding-top: 24px;
+  border-top: 1px solid var(--ink-1); }
+.ck-rows { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--ink-1); display: flex; flex-direction: column; gap: 12px; }
+.ck-rows > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.ck-rows dt { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.ck-rows dd { white-space: nowrap; text-align: right; }
+.ck-rows .is-muted { color: var(--ink-6); }
+.ck-rows .ck-total { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--ink-1);
+  font: 500 16px/16px Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.6px; }
+
+/* ---------------------------------------------------------------- notices, confirmation, empty */
+.ck-notice { margin-bottom: 30px; padding: 14px 16px; border-radius: 10px; border: 1px solid rgba(196, 71, 45, 0.3); background: rgba(196, 71, 45, 0.06); }
+.ck-notice.is-info { border-color: var(--ink-1); background: var(--surface); }
+.ck-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+.ck-facts > div { display: flex; flex-direction: column; gap: 6px; }
+.ck-facts dt { color: var(--ink-6); }
+.ck-done .ck-btn { width: auto; align-self: flex-start; min-width: 256px; }
+.ck-empty { display: flex; flex-direction: column; gap: 10px; }
+
+/* thank-you modal: the template's newsletter modal with new content */
+.ck-ty { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; width: 100%; max-width: 380px; min-width: 0; }
+.ck-ty-b { color: rgba(31, 43, 36, 0.8); }
+.ck-ty-s { color: rgba(31, 43, 36, 0.6); }
+.ck-ty-a { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 6px; }
+.ck-ty-btn { display: inline-flex; align-items: center; justify-content: center; height: 38px; padding: 0 18px; border-radius: 8px; border: 0;
+  background: rgb(31, 43, 36); color: rgb(252, 251, 247); cursor: pointer; text-decoration: none;
+  font: 500 12px/14.4px Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.4px; transition: background-color .3s; }
+.ck-ty-btn:hover { background: rgb(51, 68, 58); }
+.ck-ty-x { padding: 0; border: 0; background: none; cursor: pointer; color: rgb(31, 43, 36); text-decoration: underline; text-underline-offset: 3px;
+  font: 500 12px/14.4px Inter, "Inter Placeholder", sans-serif; letter-spacing: -0.4px; }
+
+/* ---------------------------------------------------------------- tablet + phone: one column, summary folds away */
+@media (max-width: 1199.98px) {
+  .ck-grid { grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
+  .ck-grid > .ck-form, .ck-grid > .ck-main { grid-column: 1; grid-row: 2; }
+  .ck-grid > .ck-sum { grid-column: 1; grid-row: 1; position: static; }
+  .ck-form, .ck-main { gap: 40px; }
+  .ck-sum-toggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 16px 20px; border: 0; background: none; cursor: pointer;
+    color: var(--ink); text-align: left; }
+  .ck-sum-toggle .ck-chev { position: static; margin: 0; transition: transform var(--ck-dur) var(--ck-ease); }
+  .ck-sum-toggle[aria-expanded="true"] .ck-chev { transform: rotate(180deg); }
+  .ck-sum-toggle-total { margin-left: auto; font-weight: 500; }
+  .ck-sum-body { overflow: hidden; }
+  .ck-sum:not(.is-open) .ck-sum-body { height: 0; }
+  .ck-sum-in { padding: 4px 20px 20px; }
+  .ck .ck-sum-h { display: none; }
+  .ck-done .ck-sum .ck-sum-toggle { display: none; }
+  .ck-done .ck-sum .ck-sum-body { height: auto; }
+  .ck-done .ck-sum .ck-sum-in { padding: 20px; }
+}
+@media (max-width: 809.98px) {
+  .ck-cols { grid-template-columns: minmax(0, 1fr); }
+  .ck-cols.ck-keep { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); }
+  .ck-input { font-size: 16px; line-height: 19px; }
+  .ck-opt { grid-template-columns: 16px minmax(0, 1fr); row-gap: 10px; }
+  .ck-opt-r { grid-column: 2; }
+  .ck-facts { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .ck-done .ck-btn { width: 100%; min-width: 0; }
+  .ck-ty { gap: 12px; }
+  /* the template's phone modal column is a fixed 390px inside the 342px card (fine for its short copy); fit ours */
+  .framer-rO7dW.ck-ty-card .framer-15vxrms { width: 100%; padding-left: 20px; padding-right: 20px; }
+}

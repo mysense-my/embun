@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pintu Pay (test mode)</title><meta name="robots" content="noindex">
+<meta name="description" content="Fictional test-mode payment page for the Embun demo store. No real payment is processed.">
+<link rel="icon" href="../img/brand/favicon.svg" type="image/svg+xml">
+<style>@font-face{font-family:Inter;src:url(../fonts/vQyevYAyHtARFwPqUzQGpnDs.woff2);font-display:swap;font-style:normal;font-weight:400;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;src:url(../fonts/d3tHnaQIAeqiE5hGcRw4mmgWYU.woff2);font-display:swap;font-style:normal;font-weight:500;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;src:url(../fonts/1ZFS7N918ojhhd0nQWdj3jz4w.woff2);font-display:swap;font-style:normal;font-weight:600;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
+<link rel="stylesheet" href="../css/pay.css?v=1792635899">
+</head><body>
+<header class="pp-top">
+  <span class="pp-logo"><svg viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="1" width="20" height="20" rx="6" fill="currentColor"/><path d="M8 17V5h6v12" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="12.4" cy="11.2" r=".9" fill="#fff"/></svg>Pintu Pay</span>
+  <span class="pp-test">Test mode</span>
+</header>
+<main class="pp-wrap">
+  <section class="pp-card" data-pp>
+    <div class="pp-merchant">
+      <img src="../img/brand/embun-wordmark-ink.svg" alt="Embun" height="15">
+      <span class="pp-muted">Embun Botanicals Sdn Bhd</span>
+    </div>
+    <div class="pp-amount"><span class="pp-muted" data-pp-ref></span><strong data-pp-amount></strong></div>
+    <div class="pp-tabs" role="tablist"><button type="button" class="pp-tab" data-m="fpx" role="tab"><span>FPX</span><img src="../img/svg/p-fpx.svg" alt="" width="30" height="20"></button><button type="button" class="pp-tab" data-m="card" role="tab"><span>Card</span><img src="../img/svg/p-visa.svg" alt="" width="30" height="20"></button><button type="button" class="pp-tab" data-m="duitnow" role="tab"><span>DuitNow QR</span><img src="../img/svg/p-duitnow.svg" alt="" width="30" height="20"></button><button type="button" class="pp-tab" data-m="tng" role="tab"><span>Touch 'n Go</span><img src="../img/svg/p-tng.svg" alt="" width="30" height="20"></button><button type="button" class="pp-tab" data-m="grabpay" role="tab"><span>GrabPay</span><img src="../img/svg/p-grabpay.svg" alt="" width="30" height="20"></button></div>
+
+    <div class="pp-panel" data-panel="card" hidden>
+      <form class="pp-form" data-pp-card novalidate autocomplete="off">
+        <label class="pp-field"><span>Card number</span><input name="pp-num" inputmode="numeric" autocomplete="off" value="4242 4242 4242 4242" maxlength="23"></label>
+        <div class="pp-row">
+          <label class="pp-field"><span>Expiry</span><input name="pp-exp" inputmode="numeric" autocomplete="off" value="12 / 30" maxlength="7"></label>
+          <label class="pp-field"><span>CVC</span><input name="pp-cvc" inputmode="numeric" autocomplete="off" value="123" maxlength="4"></label>
+        </div>
+        <label class="pp-field"><span>Name on card</span><input name="pp-name" autocomplete="off"></label>
+        <p class="pp-hint">Test cards only. <b>4242 4242 4242 4242</b> is approved, <b>4000 0000 0000 0002</b> is declined. Real cards are refused.</p>
+        <p class="pp-error" data-pp-error hidden></p>
+        <button type="submit" class="pp-btn" data-pp-paybtn>Pay</button>
+      </form>
+    </div>
+
+    <div class="pp-panel" data-panel="fpx" hidden>
+      <div data-pp-fpx-1>
+        <p class="pp-label">Choose your bank</p>
+        <div class="pp-banks"><button type="button" class="pp-bank" data-b="Maybank2u">Maybank2u</button><button type="button" class="pp-bank" data-b="CIMB Clicks">CIMB Clicks</button><button type="button" class="pp-bank" data-b="Public Bank">Public Bank</button><button type="button" class="pp-bank" data-b="RHB Now">RHB Now</button><button type="button" class="pp-bank" data-b="Hong Leong Connect">Hong Leong Connect</button><button type="button" class="pp-bank" data-b="AmOnline">AmOnline</button><button type="button" class="pp-bank" data-b="Bank Islam">Bank Islam</button><button type="button" class="pp-bank" data-b="Bank Rakyat">Bank Rakyat</button><button type="button" class="pp-bank" data-b="BSN">BSN</button><button type="button" class="pp-bank" data-b="Affin Bank">Affin Bank</button><button type="button" class="pp-bank" data-b="Alliance Bank">Alliance Bank</button><button type="button" class="pp-bank" data-b="OCBC">OCBC</button><button type="button" class="pp-bank" data-b="UOB">UOB</button><button type="button" class="pp-bank" data-b="HSBC">HSBC</button><button type="button" class="pp-bank" data-b="Standard Chartered">Standard Chartered</button></div>
+        <p class="pp-error" data-pp-error hidden></p>
+        <button type="button" class="pp-btn" data-pp-fpx-go>Continue</button>
+      </div>
+      <div data-pp-fpx-2 hidden>
+        <div class="pp-sim"><p class="pp-label" data-pp-bankname></p>
+          <p class="pp-hint">This is a simulated bank approval. A live payment would take you to your bank's own website to sign in. In this demo, pick an outcome.</p></div>
+        <p class="pp-error" data-pp-error hidden></p>
+        <button type="button" class="pp-btn" data-pp-approve>Approve payment</button>
+        <button type="button" class="pp-btn-2" data-pp-reject>Reject payment</button>
+      </div>
+    </div>
+
+    <div class="pp-panel" data-panel="qr" hidden>
+      <div class="pp-qr"><div data-pp-qr></div>
+        <p class="pp-hint" data-pp-qrhint></p>
+        <p class="pp-timer">Expires in <span data-pp-timer>5:00</span></p></div>
+      <p class="pp-error" data-pp-error hidden></p>
+      <button type="button" class="pp-btn" data-pp-simulate>Simulate a successful scan</button>
+    </div>
+
+    <div class="pp-state" data-pp-state hidden><div class="pp-spin"></div><p data-pp-statetext>Processing payment</p></div>
+    <div class="pp-gone" data-pp-gone hidden>
+      <p class="pp-label">No payment in progress</p>
+      <p class="pp-hint">This payment link has expired or was already used.</p>
+      <a class="pp-btn" href="../">Back to Embun</a>
+    </div>
+    <a class="pp-cancel" href="#" data-pp-cancel>Cancel and return to Embun</a>
+  </section>
+  <p class="pp-foot">Pintu Pay is a fictional payment page built for the Embun demo store. No real payment is processed and no card details are stored or sent anywhere.</p>
+</main>
+<script src="../js/pay.js?v=1792635899" defer></script>
+</body></html>

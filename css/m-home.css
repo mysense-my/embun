@@ -1,0 +1,83 @@
+/* Embun — home page component hovers (home agent).
+   Scoped to the home page root (.framer-zF9IZ) and to the DESKTOP variants only (Tablet/Mobile
+   variants have no hover in the template). Transitions are the template's own:
+   --mh-soft = spring .4/.2 (SPRING-A), --mh-stiff = spring 500/60 (SPRING-B), --mh-mini = spring 253/30,
+   all set by m-home.js from EMBUN.tr() (Framer spring maths as CSS linear()). */
+
+/* ---- Category Tab: inactive 40% -> 100% on hover (SPRING-A) */
+.framer-zF9IZ .framer-GJl1o .framer-cclxn8 { transition: opacity var(--mh-soft); }
+
+/* ---- Button (framer-8THQX): Primary (hero), Outline (white), Outline Black to Fill — SPRING-B */
+.framer-zF9IZ .framer-8THQX.framer-v-3ua7h2,
+.framer-zF9IZ .framer-8THQX.framer-v-16j8pvb,
+.framer-zF9IZ .framer-8THQX.framer-v-1886bfo { transition: background-color var(--mh-stiff); }
+.framer-zF9IZ .framer-8THQX.framer-v-3ua7h2::after,
+.framer-zF9IZ .framer-8THQX.framer-v-16j8pvb::after,
+.framer-zF9IZ .framer-8THQX.framer-v-1886bfo::after { transition: border-color var(--mh-stiff); }
+.framer-zF9IZ .framer-8THQX.framer-v-3ua7h2 .framer-text,
+.framer-zF9IZ .framer-8THQX.framer-v-1886bfo .framer-text { transition: color var(--mh-stiff); }
+
+/* ---- Collections card (framer-O5grK): glass button fills page colour, label turns ink — SPRING-A */
+.framer-zF9IZ .framer-O5grK.framer-v-1pp623 .framer-15nduyp,
+.framer-zF9IZ .framer-O5grK.framer-v-9ki90z .framer-15nduyp { transition: background-color var(--mh-soft); }
+.framer-zF9IZ .framer-O5grK.framer-v-1pp623 .framer-15nduyp::after,
+.framer-zF9IZ .framer-O5grK.framer-v-9ki90z .framer-15nduyp::after { transition: border-color var(--mh-soft); }
+.framer-zF9IZ .framer-O5grK.framer-v-1pp623 .framer-15nduyp .framer-text,
+.framer-zF9IZ .framer-O5grK.framer-v-9ki90z .framer-15nduyp .framer-text { transition: color var(--mh-soft); }
+
+/* ---- Card Large (framer-I5XJt): outline button fills ink, label page colour — SPRING-A */
+.framer-zF9IZ .framer-I5XJt.framer-v-8xkz06 .framer-41rfm2,
+.framer-zF9IZ .framer-I5XJt.framer-v-zrqmrr .framer-41rfm2 { transition: background-color var(--mh-soft); }
+.framer-zF9IZ .framer-I5XJt.framer-v-8xkz06 .framer-41rfm2 .framer-text,
+.framer-zF9IZ .framer-I5XJt.framer-v-zrqmrr .framer-41rfm2 .framer-text { transition: color var(--mh-soft); }
+
+/* ---- Featured Product mini glass card (framer-0MDYg): bg alpha .10 -> .15, spring 253/30 */
+.framer-zF9IZ .framer-0MDYg.framer-v-w3rkpj { transition: background-color var(--mh-mini); }
+
+/* ---- Testimonial Product chip (framer-KzJdH): "view" label .4 -> .8 — SPRING-A */
+.framer-zF9IZ .framer-KzJdH.framer-v-5f0ei8 .framer-1jge76z { transition: opacity var(--mh-soft); }
+
+/* ---- Article card (framer-SChft) + Link Article (framer-qGWhq): tween 1s [.25,1,.5,1] */
+.framer-zF9IZ .framer-SChft.framer-v-clgwn6 .framer-6z0nx2 { transition: transform 1s cubic-bezier(.25,1,.5,1); }
+.framer-zF9IZ .framer-SChft.framer-v-clgwn6 .framer-qGWhq .framer-2v92af { transition: transform 1s cubic-bezier(.25,1,.5,1); }
+
+/* ---- Hero: the 50px "Indicator Container" band (z 8) sits over the bottom of the heading row; let it pass
+   clicks through except on the indicator itself, so the ↓ arrow (scrolls to the next section) is reachable */
+.framer-zF9IZ .framer-IGtMQ .framer-qnjjon { pointer-events: none; }
+.framer-zF9IZ .framer-IGtMQ .framer-pudffz { pointer-events: auto; }
+.framer-zF9IZ .framer-IGtMQ .framer-iul2s6-container { cursor: pointer; }
+
+/* ---- Framer Slideshow arrows: whileTap scale .9, tween .15s (default ease) */
+.framer-zF9IZ fieldset.framer--slideshow-controls button { transition: transform .15s cubic-bezier(.42,0,.58,1); }
+
+@media (hover: hover) {
+  .framer-zF9IZ .framer-GJl1o.framer-v-ejt9fw:hover .framer-cclxn8 { opacity: 1 !important; }
+
+  /* Primary Button -> Primary Button - Hover: border/bg page colour, text ink */
+  .framer-zF9IZ .framer-8THQX.framer-v-3ua7h2:hover { background-color: rgb(252, 251, 247) !important; --border-color: rgb(252, 251, 247) !important; }
+  .framer-zF9IZ .framer-8THQX.framer-v-3ua7h2:hover .framer-text { color: rgb(31, 43, 36) !important; }
+  /* Outline -> Outline Active: border page colour */
+  .framer-zF9IZ .framer-8THQX.framer-v-16j8pvb:hover { --border-color: rgb(252, 251, 247) !important; }
+  /* Outline Black to Fill -> Outline Black - Active: border + bg ink, text page colour */
+  .framer-zF9IZ .framer-8THQX.framer-v-1886bfo:hover { background-color: rgb(31, 43, 36) !important; --border-color: rgb(31, 43, 36) !important; }
+  .framer-zF9IZ .framer-8THQX.framer-v-1886bfo:hover .framer-text { color: rgb(252, 251, 247) !important; }
+
+  .framer-zF9IZ .framer-O5grK.framer-v-1pp623:hover .framer-15nduyp,
+  .framer-zF9IZ .framer-O5grK.framer-v-9ki90z:hover .framer-15nduyp { background-color: rgb(252, 251, 247) !important; --border-color: rgb(252, 251, 247) !important; }
+  .framer-zF9IZ .framer-O5grK.framer-v-1pp623:hover .framer-15nduyp .framer-text,
+  .framer-zF9IZ .framer-O5grK.framer-v-9ki90z:hover .framer-15nduyp .framer-text { color: rgb(31, 43, 36) !important; }
+
+  .framer-zF9IZ .framer-I5XJt.framer-v-8xkz06:hover .framer-41rfm2,
+  .framer-zF9IZ .framer-I5XJt.framer-v-zrqmrr:hover .framer-41rfm2 { background-color: rgb(31, 43, 36) !important; }
+  .framer-zF9IZ .framer-I5XJt.framer-v-8xkz06:hover .framer-41rfm2 .framer-text,
+  .framer-zF9IZ .framer-I5XJt.framer-v-zrqmrr:hover .framer-41rfm2 .framer-text { color: rgb(252, 251, 247) !important; }
+
+  .framer-zF9IZ .framer-0MDYg.framer-v-w3rkpj:hover { background-color: rgba(252, 251, 247, 0.15) !important; }
+
+  .framer-zF9IZ .framer-KzJdH.framer-v-5f0ei8:hover .framer-1jge76z { opacity: 0.8 !important; }
+
+  /* Article Card -> Article Card - Hover: thumbnail 1.03 -> 1; Link Article -> Hover (line slides out right) */
+  .framer-zF9IZ .framer-SChft.framer-v-clgwn6:hover .framer-6z0nx2 { transform: none !important; }
+  .framer-zF9IZ .framer-SChft.framer-v-clgwn6:hover .framer-qGWhq.framer-tpvik9 { align-items: flex-end; align-content: flex-end; }
+  .framer-zF9IZ .framer-SChft.framer-v-clgwn6:hover .framer-qGWhq .framer-2v92af { transform: translateX(100%); }
+}

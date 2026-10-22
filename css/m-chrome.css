@@ -1,0 +1,27 @@
+/* Embun — global chrome (m-chrome.js). Palette: ink #1F2B24, page #FCFBF7. */
+
+/* Desktop nav on pages whose SSR nav is the transparent variant (light labels): when the bar turns Fill or a
+   mega-menu opens, the labels, underline lines and the Bag count switch to ink instantly (template behaviour). */
+nav.em-ink .framer-8z6qxp p.framer-text { --framer-text-color: rgb(31, 43, 36) !important; }
+nav.em-ink .framer-8z6qxp [data-framer-name="Line"] { background-color: rgb(31, 43, 36) !important; }
+nav.em-ink .framer-8z6qxp .framer-5xjkw0-container p { color: rgb(31, 43, 36) !important; }
+
+/* Search input (Framer Commerce search): placeholder rgba(ink,.4) */
+#template-overlay .em-search-input::placeholder { color: rgba(31, 43, 36, 0.4); opacity: 1; }
+
+/* flags (footer trigger 16x12, country modal 40x30): fill the box behind the 1px border overlay */
+.framer-qg7043-container { overflow: hidden; }
+.em-flag { position: absolute; inset: 0; }
+.em-flag svg { display: block; width: 100%; height: 100%; }
+.framer-qg7043-container > svg { display: block; width: 100%; height: 100%; }
+
+/* form buttons, Loading state: conic spinner (transparent 7.2deg -> page 342deg) masked to a ring, 1s linear */
+.em-spinner {
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(252, 251, 247, 0) 7.2deg, rgb(252, 251, 247) 342deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), rgb(31, 43, 36) calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), rgb(31, 43, 36) calc(100% - 1.5px));
+  animation: em-spin 1s linear infinite;
+}
+@keyframes em-spin { to { transform: rotate(360deg); } }
+.framer-DYTrb:disabled, .framer-nJwBB:disabled { cursor: default; }

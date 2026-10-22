@@ -1,0 +1,16 @@
+/* Embun — content pages module styles (see js/m-content.js).
+   Only transition plumbing for properties that read CSS variables (border on ::after, text colour
+   via --extracted-*) and the spinner loop; the layout itself is the template's SSR CSS. --en-bt is
+   set per element by m-content.js from the component's Framer transition. */
+
+/* 1px borders drawn with ::after (data-border): colour / width follow the component transition */
+.en-bdr::after { transition: border-color var(--en-bt, 0s), border-width var(--en-bt, 0s); }
+/* text colour driven by --extracted-r6o4lv on the text container */
+.en-col p, .en-col .framer-text { transition: color var(--en-bt, 0s); }
+
+/* Share Article button: the instance root is the tap target (cursor pointer in the template) */
+.framer-2xJkR.framer-1skz04i { cursor: pointer; }
+
+/* Contact Form Button "Loading": Conic rotates 360deg, 1s linear, loop (repeat delay 0) */
+@keyframes en-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.en-spin { animation: en-spin 1s linear infinite; }
