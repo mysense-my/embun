@@ -894,17 +894,23 @@
 
     /* ================================================================== MODALS (queue: newsletter -> countryA) */
     var MODALS = {
-      newsletter: { frag: 'modal-newsletter', holder: '.framer-7q70e4-container', key: 'modal_dismissed_newsletter', days: 1 },
+      newsletter: { frag: 'modal-newsletter', holder: '.framer-7q70e4-container', key: 'modal_dismissed_newsletter', hours: 2 },  // template: 1 day
       countryA: { frag: 'modal-country', holder: '.framer-1uwvc4l-container', key: 'modal_dismissed_countryA', days: 30 }
     };
     var ORDER = ['newsletter', 'countryA'];
     var openModals = {};
+    /* the welcome offer stays away for 30 days once someone signs up (popup or the "Stay in the loop" strip) */
+    var NL_JOINED = 'embun_newsletter_joined', NL_JOINED_DAYS = 30;
+    function since(key) { var v; try { v = localStorage.getItem(key); } catch (e) { return Infinity; } var t = Date.parse(v || ''); return isNaN(t) ? Infinity : Date.now() - t; }
     function dismissedRecently(name) {
-      var m = MODALS[name], v;
-      try { v = localStorage.getItem(m.key); } catch (e) { return false; }
-      if (!v) return false;
-      var t = Date.parse(v); if (isNaN(t)) return false;
-      return (Date.now() - t) < m.days * 864e5;
+      var m = MODALS[name];
+      if (name === 'newsletter' && since(NL_JOINED) < NL_JOINED_DAYS * 864e5) return true;
+      return since(m.key) < (m.hours ? m.hours * 36e5 : m.days * 864e5);
+    }
+    function joinedOnSubmit(form) {
+      form.addEventListener('submit', function () {
+        if (!form.checkValidity || form.checkValidity()) { try { localStorage.setItem(NL_JOINED, new Date().toISOString()); } catch (e) {} }
+      });
     }
     function dismiss(name) { try { localStorage.setItem(MODALS[name].key, new Date().toISOString()); } catch (e) {} }
     function showModal(name) {
@@ -963,9 +969,20 @@
         if (!dismissedRecently(ORDER[k])) { var nx = ORDER[k]; after(how === 'backdrop' ? 300 : 100, function () { showModal(nx); }); break; }
       }
     }
-    /* newsletter: opens at 30% of the page's scrollable height (re-shows after 1 day) */
-    if (!dismissedRecently('newsletter') && E.page !== 'checkout') {   // never interrupt a checkout
-      var nlThr = null;
+    /* newsletter: opens at 30% of the page's scrollable height (template) or after 20s of browsing in this visit,
+       whichever comes first. Re-shows 2 hours after it was closed (template: 1 day), not for 30 days after a sign-up,
+       never on the checkout, and never on top of an open drawer, menu or modal (it waits for the scroll lock). */
+    var NL_AFTER = 20000, NL_VISIT = 'embun_visit_start';
+    if (!dismissedRecently('newsletter') && E.page !== 'checkout') {
+      var nlThr = null, nlDone = false;
+      var nlOpen = function () {
+        if (nlDone || dismissedRecently('newsletter')) return;
+        var busy = document.body.style.position === 'fixed'                       // a modal (E.lock)
+          || document.documentElement.style.overflow === 'hidden'                   // bag / search drawer
+          || !!document.querySelector('style[data-frameruni-stop-scroll]');        // phone menu sheet
+        if (busy) { after(4000, nlOpen); return; }
+        nlDone = true; window.removeEventListener('scroll', nlScroll); showModal('newsletter');
+      };
       var nlMeasure = function () {
         var de = document.documentElement, b = document.body;
         var H = Math.max(de.scrollHeight, b.scrollHeight, de.offsetHeight, b.offsetHeight, de.clientHeight);
@@ -975,9 +992,12 @@
       window.addEventListener('resize', function () { nlThr = null; });
       var nlScroll = function () {
         if (nlThr == null) nlMeasure();
-        if (window.scrollY >= nlThr && nlThr > 0) { window.removeEventListener('scroll', nlScroll); showModal('newsletter'); }
+        if (window.scrollY >= nlThr && nlThr > 0) nlOpen();
       };
       window.addEventListener('scroll', nlScroll, { passive: true });
+      var visitStart = Date.now();
+      try { visitStart = +sessionStorage.getItem(NL_VISIT) || visitStart; sessionStorage.setItem(NL_VISIT, String(visitStart)); } catch (e) {}
+      after(Math.max(1500, NL_AFTER - (Date.now() - visitStart)), nlOpen);
     }
     E.openCountry = function () { showModal('countryA'); };
     window.addEventListener('force_show_modal', function (ev) { if (ev.detail && MODALS[ev.detail.key]) showModal(ev.detail.key); });
@@ -1011,6 +1031,7 @@
         btn.addEventListener('mouseleave', function () { anim(btn, 'bg', null, { backgroundColor: INK }, T.stiff); });
         btn.addEventListener('pointerdown', function () { if (!form.__done) anim(btn, 'bg', null, { backgroundColor: ramp(51) }, T.stiff); });
       }
+      joinedOnSubmit(form);
       mockSubmit(form, btn, btn, 20);
     }
 
@@ -1186,6 +1207,7 @@
         btn.addEventListener('mouseleave', function () { anim(btn, 'pad', null, { paddingLeft: '0px' }, T.cta); });
       }
       var inner = btn && $('.framer-l8vjxn', btn);
+      joinedOnSubmit(form);
       mockSubmit(form, btn, inner, 20);
     });
 
