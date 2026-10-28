@@ -69,8 +69,10 @@ The GitHub repository [mysense-my/embun](https://github.com/mysense-my/embun), m
 template study stay in the local project folder (`~/Desktop/Website Works/All Natural`). They're left out because
 the raw image sources run to about 1.1 GB and the study contains the original template's own code and images.
 
-The local `site/` repo pushes to both at once (`origin` has two push URLs), so after `python3 build/build.py` a single
-`git push` inside `site/` updates both repositories.
+The two repos differ in one place: the footer credit. mysense-my/embun says "Site by MYSense" (mysense.com.my);
+zebwan/embun says "Site by Shazwan Sites" (mhdshazwn.com). To update both, rebuild, commit inside `site/`, then run
+`python3 build/publish.py`. It pushes `main` to mysense-my and generates the zebwan version as a separate commit
+on the local `zebwan` branch, without changing the files in `site/`.
 
 ```
 site/        the built website (open this; everything is relative-linked)
