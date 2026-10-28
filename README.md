@@ -63,10 +63,14 @@ pegaga, kunyit, bunga raya, kelulut honey, rice water and santan.
 
 ## Folder layout
 
-The GitHub repository [mysense-my/embun](https://github.com/mysense-my/embun) holds the built website: the local
+The GitHub repository [mysense-my/embun](https://github.com/mysense-my/embun), mirrored at
+[zebwan/embun](https://github.com/zebwan/embun), holds the built website: the local
 `site/` folder is the repository root, plus this README and CREDITS. The generator (`build/`), brand files and the
 template study stay in the local project folder (`~/Desktop/Website Works/All Natural`). They're left out because
 the raw image sources run to about 1.1 GB and the study contains the original template's own code and images.
+
+The local `site/` repo pushes to both at once (`origin` has two push URLs), so after `python3 build/build.py` a single
+`git push` inside `site/` updates both repositories.
 
 ```
 site/        the built website (open this; everything is relative-linked)
